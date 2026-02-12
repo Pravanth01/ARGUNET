@@ -1,12 +1,12 @@
 
 import React, { useState, useEffect } from 'react';
 import { DebateRole, GameState, Player, Message } from './types';
-import { scoreArgument } from './services/geminiService';
+import { calculateScore } from './services/debateEngine';
 import SetupForm from './components/SetupForm';
 import DebateArena from './components/DebateArena';
 import Results from './components/Results';
 
-const STORAGE_KEY = 'argunet_v3_game';
+const STORAGE_KEY = 'argunet_v5_local_deploy';
 
 const App: React.FC = () => {
   const [view, setView] = useState<'SETUP' | 'DEBATE' | 'RESULT'>('SETUP');
@@ -36,6 +36,8 @@ const App: React.FC = () => {
 
   const handleStart = async (p1: string, p2: string, threshold: number, topic: string) => {
     setLoading(true);
+    await new Promise(r => setTimeout(r, 400));
+    
     const newState: GameState = {
       topic,
       players: [
@@ -61,7 +63,8 @@ const App: React.FC = () => {
     const player = gameState.players[idx];
     
     setLoading(true);
-    const evaluation = await scoreArgument(gameState.topic, player.role, text);
+    // Local deterministic logic engine
+    const evaluation = await calculateScore(text);
     setLoading(false);
 
     const updatedPlayers = [...gameState.players] as [Player, Player];

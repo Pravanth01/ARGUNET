@@ -1,5 +1,5 @@
 {
   "name": "ArguNet",
-  "description": "An AI-powered debate platform where two players face off on various topics. Arguments are scored in real-time by Gemini AI, with dynamic scoring, progress tracking, and a winning threshold system.",
+  "description": "A high-performance debate platform for two players. Features real-time scoring logic, progress tracking, and a dynamic winning threshold system. Fully offline and ready for static deployment.",
   "requestFramePermissions": []
 }
